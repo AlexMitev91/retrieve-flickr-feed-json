@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flickr Photo Feed</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="feed"></div>
+    <script>
+        function loadFlickr(flickrid)
+        {
+
+            var flickrApiUrl = "https://www.flickr.com/services/feeds/photos_public.gne?id=" + flickrid + "&lang=en-us&format=json&jsoncallback=?";
+
+            $.ajax({
+                type: 'GET',
+                url: flickrApiUrl,
+                success: function (feed) {
+                    var thumbs = [];
+                
+                    for (var i = 0, l = feed.items.length; i < l ; i++) {
+
+                        var img = '<img src="' + feed.items[i].media.m + '" alt=""></a>';
+                        
+                        thumbs.push(img);
+                    }
+                    $('#feed').html(thumbs.join(''));
+                },
+                dataType: 'jsonp'
+
+                });
+        }
+        loadFlickr('199161394@N02');
+    </script>
+</body>
+</html>
+
+
+
+
